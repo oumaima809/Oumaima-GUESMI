@@ -64,29 +64,24 @@ const app = express()
 
 
 
- //Get one task
+ //Get one task depending on the flter if it's category or due_date
 
-  /* app.get("/api/:userid/contacts/:search/:param", (req, res) => {
+ app.get("/api/tasks/:filter/:param", (req, res) => {
     try {
-        const { userid,search, param } = req.params;
-        console.log(userid);
-        console.log(search);
-        console.log(param);
+        const { filter, param } = req.params;
+       
         let sql ;
-        if(search === '1'){
-            console.log("h")
-            sql = "SELECT * FROM contacts WHERE `fullName` = ? AND `contactId` = ?";
+        if(filter === 'category'){
+            
+            sql = "SELECT * FROM tasks WHERE `category` = ? ";
         }
-        else if(search === '2'){
-            console.log("h2")
-            sql = "SELECT * FROM contacts WHERE `email` = ? AND `contactId` = ?";
-        }else{
-            console.log("h3")
-            sql = "SELECT * FROM contacts WHERE `phoneNumber` = ? AND `contactId` = ?";
+        else {
+           
+            sql = "SELECT * FROM tasks WHERE `due_date` = ? ";
         }
 
         
-        db.query(sql, [param, userid], (err, result) => {
+        db.query(sql, [param], (err, result) => {
             if (err) {
                 console.error("Database error:", err);
                 return res.status(500).json({ message: "Server error" });
@@ -103,8 +98,8 @@ const app = express()
 
 
 
-*/
- //Edit a task
+
+ //Edit a task 
 
  app.put("/api/tasks/:id", (req, res) => {
     try {
